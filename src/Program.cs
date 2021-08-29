@@ -70,7 +70,10 @@ namespace Parentiphy
          */
 
         if (baseFiles.Length != 0 || baseDirectories.Length != 1)
+        {
+          WriteLine($"directory '{baseDirectory.Name}' lacks redundancy; skipping...");
           return;
+        }
 
         var redundantDirectory = baseDirectories[0];
         var pendingFiles       = redundantDirectory.GetFiles("*", TopDirectoryOnly);
@@ -82,14 +85,20 @@ namespace Parentiphy
          */
 
         foreach (var file in pendingFiles)
+        {
           file.MoveTo(Combine(baseDirectory.FullName, file.Name));
+          WriteLine($"moved file '{file.Name}' to base directory");
+        }
 
         /**
          * We carry out the same procedure for the top-level directories.
          */
 
         foreach (var directory in pendingDirectories)
+        {
           directory.MoveTo(Combine(baseDirectory.FullName, directory.Name));
+          WriteLine($"moved file '{directory.Name}' to base directory");
+        }
 
         /**
          * If the inferred redundant directory is empty - which it should be after a successful procedure - we will
@@ -102,7 +111,11 @@ namespace Parentiphy
         if (redundantDirectory.GetFiles("*", AllDirectories).Length == 0)
           redundantDirectory.Delete();
 
+        WriteLine($"deleted empty redundant directory '{redundantDirectory.Name}'");
+
         baseDirectory.LastWriteTimeUtc = realLastWrite;
+
+        WriteLine($"set base directory time to '{realLastWrite}'");
       }
 
       OptionSet.WriteOptionDescriptions(Out);
