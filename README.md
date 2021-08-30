@@ -4,10 +4,14 @@
     </h1>
     <p align='center'>
         Remove redundant folders from a given path.
+        <br><br>
+        <a href="https://github.com/yumiris/Parentiphy/releases/latest">
+            Download
+        </a>
     </p>
 </html>
 
-# Introduction
+## Introduction
 
 This oddly-named program will remove those irritating folders that appear after you extract an archive:
 
@@ -18,7 +22,9 @@ It does it gracefully and elegantly, and accomplishes the same result as:
 1.  WinRAR's "Remove redundant folders from extraction path." option; or
 2.  Ark's (through Dolphin) "Extract here, Autodetect Subfolder" procedure.
 
-# Usage
+## Usage
+
+The latest rudimentary release can be found [here](https://github.com/yumiris/Parentiphy/releases/latest)!
 
 The usage is as wacky as the name of this program, let alone the problem it solves:
 
@@ -26,8 +32,11 @@ The usage is as wacky as the name of this program, let alone the problem it solv
 parent --for "~/directory" # removes redundant folder in ~/directory
 parent --all "~/directory" # removes redundant folders in ~/directory's top level folders
 ```
+```sh
+7z x "~/data.7z" -o"~/data" && parent --for "~/data"
+```
 
-# Mechanism
+## Mechanism
 
 The program will handle a given directory ONLY if it fulfils the following requirements:
 
